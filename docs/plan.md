@@ -37,7 +37,7 @@
 ## 5. AI
 *   [x] Implement basic AI for predators.
 *   [x] Implement predator patrol behavior.
-*   [ ] Implement predator chase behavior.
+*   [x] Implement predator chase behavior.
 
 ## 6. UI
 *   [ ] Create a UI for displaying XP.
