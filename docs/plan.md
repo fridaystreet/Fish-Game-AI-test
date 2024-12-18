@@ -27,7 +27,7 @@
 *   [x] Add background.
 
 ## 4. Fish Design
-*   [ ] Create a basic fish model.
+*   [x] Create a basic fish model.
 *   [x] Implement swimming animations.
 *   [x] Implement speed boost animation.
 *   [x] Implement attack animation.
@@ -35,8 +35,8 @@
 *   [x] Create multiple fish species.
 
 ## 5. AI
-*   [ ] Implement basic AI for predators.
-*   [ ] Implement predator patrol behavior.
+*   [x] Implement basic AI for predators.
+*   [x] Implement predator patrol behavior.
 *   [ ] Implement predator chase behavior.
 
 ## 6. UI
