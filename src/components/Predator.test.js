@@ -26,4 +26,20 @@ describe('Predator', () => {
         predator.update(0.016, mockFish.model.position);
         expect(predator.model.position.z).toBeGreaterThan(initialPosition.z);
     });
+
+    it('should take damage', () => {
+        const scene = new THREE.Scene();
+        const predator = new Predator(scene, 'clownfish');
+        const initialHealth = predator.health;
+        predator.takeDamage(1);
+        expect(predator.health).toBe(initialHealth - 1);
+    });
+
+    it('should play hit animation', () => {
+        const scene = new THREE.Scene();
+        const predator = new Predator(scene, 'clownfish');
+        const initialColor = predator.model.material.color.clone();
+        predator.playHitAnimation();
+        expect(predator.model.material.color).not.toEqual(initialColor);
+    });
 });

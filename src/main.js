@@ -58,6 +58,7 @@ import { ReefEnvironment } from './scenes/ReefEnvironment';
 import { Fish } from './components/Fish';
 import { Player } from './core/Player';
 import { XPDisplay } from './ui/XPDisplay';
+import { ShopButton } from './ui/ShopButton';
 
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
@@ -85,6 +86,19 @@ scene.add(treasureChest.model);
 
 const player = new Player();
 const xpDisplay = new XPDisplay(player);
+const shopButton = new ShopButton(player);
+
+const audioListener = new THREE.AudioListener();
+camera.add(audioListener);
+
+const underwaterSound = new THREE.Audio(audioListener);
+const audioLoader = new THREE.AudioLoader();
+audioLoader.load('assets/underwater.txt', function(buffer) {
+    underwaterSound.setBuffer(buffer);
+    underwaterSound.setLoop(true);
+    underwaterSound.setVolume(0.5);
+    underwaterSound.play();
+});
 
 const predator = new FishCombat(fish.model, 1);
 const predator = new Predator(scene, 'clownfish');

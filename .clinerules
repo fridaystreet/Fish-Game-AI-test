@@ -9,6 +9,6 @@
 
 Completing tasks:
 - When there is a plan to follow
-  - keep implementing all the tasks in the plan in order until you get stuck or you need to ask me something.
+  - keep implementing all the tasks in the plan in order until you get stuck more than 5 times on the same issue
   - don't use attempt_completion to report your finishing of a task as it will stop your flow. Just tell me in a normal message and then keep going
 - Otherwise just implement the task as usual

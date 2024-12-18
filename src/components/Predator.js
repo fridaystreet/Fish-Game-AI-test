@@ -1,15 +1,41 @@
 import * as THREE from 'three';
 
 export class Predator {
-    constructor(scene, fishSpecies) {
+    constructor(scene, fishSpecies, predatorType = 'basic') {
         this.scene = scene;
         this.fishSpecies = fishSpecies;
-        this.model = new THREE.Mesh(new THREE.BoxGeometry(0.8, 0.8, 0.8), new THREE.MeshBasicMaterial({ color: 0xff0000 }));
-        this.scene.add(this.model);
-        this.patrolArea = new THREE.Vector3(0, 0, -8);
-        this.model.position.copy(this.patrolArea);
+        this.predatorType = predatorType;
         this.speed = 1;
         this.time = 0;
+        this.health = 3;
+        this.isHit = false;
+        this.hitTime = 0;
+        this.patrolArea = new THREE.Vector3(0, 0, -8);
+
+        switch (this.predatorType) {
+            case 'shark':
+                this.createSharkModel();
+                break;
+            default:
+                this.createBasicPredatorModel();
+                break;
+        }
+    }
+
+    createBasicPredatorModel() {
+        this.model = new THREE.Mesh(new THREE.BoxGeometry(0.8, 0.8, 0.8), new THREE.MeshBasicMaterial({ color: 0xff0000 }));
+        this.scene.add(this.model);
+        this.model.position.copy(this.patrolArea);
+    }
+
+    createSharkModel() {
+         // Create a shark body (a cone for now)
+        const bodyGeometry = new THREE.ConeGeometry(0.5, 1.5, 32);
+        const bodyMaterial = new THREE.MeshBasicMaterial({ color: 0x808080 }); // Gray color
+        this.model = new THREE.Mesh(bodyGeometry, bodyMaterial);
+        this.model.rotation.x = Math.PI / 2;
+        this.scene.add(this.model);
+        this.model.position.copy(this.patrolArea);
     }
 
     update(deltaTime, playerPosition) {
@@ -26,13 +52,24 @@ export class Predator {
             this.model.position.x = this.patrolArea.x + Math.cos(angle) * 2;
             this.model.position.z = this.patrolArea.z + Math.sin(angle) * 2;
         }
+
+        if (this.isHit) {
+            this.hitTime += deltaTime;
+            if (this.hitTime > 0.2) {
+                this.isHit = false;
+                this.hitTime = 0;
+                this.model.material.color.set(0xff0000);
+            }
+        }
     }
 
     takeDamage(damage) {
-        // Apply damage to the predator
+        this.health -= damage;
+        this.playHitAnimation();
     }
 
     playHitAnimation() {
-        // Play a hit animation
+        this.isHit = true;
+        this.model.material.color.set(0x0000ff);
     }
 }

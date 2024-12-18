@@ -1,8 +1,10 @@
 import * as THREE from 'three';
+import FishModel from './FishModel.js';
 
 export class Fish {
-    constructor(geometry, material) {
-        this.model = new THREE.Mesh(geometry, material);
+    constructor(fishType = 'basic') {
+        this.fishModel = new FishModel(fishType);
+        this.model = this.fishModel.getModel();
         this.skins = [];
         this.currentSkin = null;
     }

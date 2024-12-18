@@ -1,9 +1,11 @@
 import * as THREE from 'three';
+import { ShopScreen } from './ShopScreen.js';
 
 export class ShopButton {
-    constructor() {
+    constructor(player) {
+        this.player = player;
         this.element = document.createElement('button');
-        this.element.textContent = 'Shop';
+        this.element.innerHTML = '&#128722;'; // Shopping cart icon
         this.element.style.position = 'absolute';
         this.element.style.top = '10px';
         this.element.style.right = '10px';
@@ -15,11 +17,11 @@ export class ShopButton {
         this.element.style.fontFamily = 'Arial, sans-serif';
         this.element.style.fontSize = '16px';
         document.body.appendChild(this.element);
+        this.shopScreen = new ShopScreen(this.player);
         this.element.addEventListener('click', () => this.openShop());
     }
 
     openShop() {
-        console.log('Shop button clicked!');
-        // Implement shop screen logic here
+        this.shopScreen.open();
     }
 }

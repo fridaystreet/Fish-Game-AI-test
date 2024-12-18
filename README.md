@@ -67,11 +67,14 @@ Read the docs in the following order
  - docs/detailed-visuals.md
  - all the other docs referenced in those 
 
-The plan.md has a detailed plan on where we are at. Anaylse the codebase to understand where the code is at as nothing has been commited to git yet, 
-Run the tests to see what's failing. 
+The plan.md has a detailed plan on where we are at. 
+- check git for uncommited changes and the last commit to see what's been done if you need to. 
+- analyse any code you think you need for the task
+- Run the tests to see what's failing at the moment. 
 
-When you pick up where we left off and carry on, remeber: 
-- keep implementing all the tasks in the plan in order until you get stuck or you need to ask me something.
+When you pick up where we left off and carry on, remeber VERY IMPORTANT: 
+- keep implementing all the tasks in the plan in order until you get stuck more than 5 times on the same issue
 - don't use attempt_completion to report your finishing of a task as it will stop your flow. Just tell me in a normal message and then keep going
 - completely implement the plan base don the rules above
-- also ensure you're doing git commits inbetween tasks
+- Ensure you're doing git commits once you finsih each task before starting the next
+- Make sure all the tests are passing before moving on to the next task
