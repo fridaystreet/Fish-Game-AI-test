@@ -16,13 +16,25 @@ export class TreasureChest {
     }
 
     onProximity(player) {
-        // Check if player is within proximity
+        const distance = this.model.position.distanceTo(player.fish.position);
+        if (distance < 2) {
+            player.canInteract = true;
+        } else {
+            player.canInteract = false;
+        }
     }
 
     onInteract(player) {
-        if (!this.isOpened) {
+        if (!this.isOpened && player.canInteract) {
             this.isOpened = true;
             player.addXP(this.reward);
+            const audioLoader = new THREE.AudioLoader();
+            const treasureSound = new THREE.Audio(new THREE.AudioListener());
+            audioLoader.load('assets/coin.mp3', (buffer) => {
+                treasureSound.setBuffer(buffer);
+                treasureSound.setVolume(0.5);
+                treasureSound.play();
+            });
             this.scene.remove(this.model);
         }
     }

@@ -20,6 +20,13 @@ export class Coin {
             player.setBonusMultiplier(1 + (player.consecutiveCoinCount * 0.1));
         }
         player.addXP(this.value);
+        const audioLoader = new THREE.AudioLoader();
+        const coinSound = new THREE.Audio(new THREE.AudioListener());
+        audioLoader.load('assets/coin.mp3', (buffer) => {
+            coinSound.setBuffer(buffer);
+            coinSound.setVolume(0.5);
+            coinSound.play();
+        });
         this.scene.remove(this.model);
         setTimeout(() => {
             player.resetBonusMultiplier();
