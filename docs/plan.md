@@ -43,7 +43,7 @@
 *   [ ] Create a UI for displaying XP.
 *   [ ] Create a shop button.
 *   [ ] Create a shop screen.
-*   [ ] Implement purchase confirmation dialog.
+*   [x] Implement purchase confirmation dialog.
 
 ## 7. Sound
 *   [ ] Add ambient underwater sounds.

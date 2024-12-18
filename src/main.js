@@ -93,7 +93,7 @@ camera.add(audioListener);
 
 const underwaterSound = new THREE.Audio(audioListener);
 const audioLoader = new THREE.AudioLoader();
-audioLoader.load('assets/underwater.txt', function(buffer) {
+audioLoader.load('assets/underwater.mp3', function(buffer) {
     underwaterSound.setBuffer(buffer);
     underwaterSound.setLoop(true);
     underwaterSound.setVolume(0.5);
