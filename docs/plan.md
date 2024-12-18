@@ -2,7 +2,7 @@
 
 ## 1. Project Setup
 *   [x] Set up a new project directory.
-*   [ ] Initialize a new Git repository.
+*   [x] Initialize a new Git repository.
 *   [x] Choose a 3D game engine (Three.js).
 *   [x] Set up the basic project structure.
 *   [x] Create a basic HTML file to host the game.
@@ -40,9 +40,9 @@
 *   [x] Implement predator chase behavior.
 
 ## 6. UI
-*   [ ] Create a UI for displaying XP.
-*   [ ] Create a shop button.
-*   [ ] Create a shop screen.
+*   [x] Create a UI for displaying XP.
+*   [x] Create a shop button.
+*   [x] Create a shop screen.
 *   [x] Implement purchase confirmation dialog.
 
 ## 7. Sound
