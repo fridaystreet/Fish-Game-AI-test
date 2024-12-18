@@ -60,19 +60,22 @@ For more detailed information on specific aspects of the game, please refer to t
 
 
 ## Instructions for the AI to get started
-Read the docs in the following order
+1. Read the docs in the following order. You don't need to read the docs refeerenced in these docs yet
  - docs/spec.md
  - docs/visuals.md
  - docs/detailed-spec.md 
  - docs/detailed-visuals.md
- - all the other docs referenced in those 
+ 
 
-The plan.md has a detailed plan on where we are at. 
+2. The plan.md has a detailed plan on where we are at. 
 - check git for uncommited changes and the last commit to see what's been done if you need to. 
 - analyse any code you think you need for the task
 - Run the tests to see what's failing at the moment. 
 
-When you pick up where we left off and carry on, remeber VERY IMPORTANT: 
+3. Once you work out what the next task is refer to section 7 of the detail-spec.md and/or section 1 of the detailed-visuals.ms for references to the the revelvant highly detailed documents for more info on requirements and guidelines related to the task
+
+
+** VERY IMPORTANT: When you pick up where we left off and carry on, remeber **
 - keep implementing all the tasks in the plan in order until you get stuck more than 5 times on the same issue
 - don't use attempt_completion to report your finishing of a task as it will stop your flow. Just tell me in a normal message and then keep going
 - completely implement the plan base don the rules above

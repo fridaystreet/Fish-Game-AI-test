@@ -13,11 +13,26 @@ describe('CameraControls', () => {
     const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
     const domElement = document.createElement('canvas');
     const cameraControls = new CameraControls(camera, domElement);
-    const geometry = new THREE.ConeGeometry(0.5, 1, 32);
-    const material = new THREE.MeshBasicMaterial({ color: 0xffa500 });
-    const fish = new THREE.Mesh(geometry, material);
-    cameraControls.update(fish);
-    expect(fish.rotation.y).toBe(0);
+    cameraControls.update();
+    expect(camera.rotation.x).toBe(0);
+    expect(camera.rotation.y).toBe(0);
+    expect(camera.rotation.z).toBe(0);
+  });
+
+  it('should set the turning speed', () => {
+    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+    const domElement = document.createElement('canvas');
+    const cameraControls = new CameraControls(camera, domElement);
+    cameraControls.setTurningSpeed(2);
+    expect(cameraControls.turningSpeed).toBe(2);
+  });
+
+  it('should set the turning radius', () => {
+    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+    const domElement = document.createElement('canvas');
+    const cameraControls = new CameraControls(camera, domElement);
+    cameraControls.setTurningRadius(2);
+    expect(cameraControls.turningRadius).toBe(2);
   });
 
   it('should return the camera direction', () => {

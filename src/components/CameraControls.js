@@ -9,13 +9,20 @@ export class CameraControls {
         this.domElement.addEventListener('mousemove', this.onMouseMove.bind(this));
         this.pitch = 0;
         this.yaw = 0;
+        this.turningSpeed = 1;
+        this.turningRadius = 1;
     }
 
-    update(fish) {
+    update() {
         this.camera.rotation.set(this.pitch, this.yaw, 0);
-        if (fish) {
-            fish.rotation.y = this.yaw;
-        }
+    }
+
+    setTurningSpeed(speed) {
+        this.turningSpeed = speed;
+    }
+
+    setTurningRadius(radius) {
+        this.turningRadius = radius;
     }
 
     onMouseMove(event) {
