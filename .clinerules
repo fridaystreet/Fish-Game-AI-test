@@ -1,0 +1,14 @@
+- do not go outside the scope of the task and improve code unless specifically instructed to do so as part of the task
+- Only change, fix add, code that is directly related to the task being requested.
+- Never change the intent of the code unless epcifically instructed to do so.
+- if you have attempted to get something working 3-5 times and are going around in circles, then stop and aks for help
+- no file should be over 700 lines
+  - if it is and it is a document, then use common sense to break it down into relevant sub documents and ensure the parent has information on the contents and how to naviogate the documents
+  - if it is and it's code. start by breaking down the most complex functions and abstracting away complexity and breaking down into smaller components or helper functions that can be in other files.
+
+
+Completing tasks:
+- When there is a plan to follow
+  - keep implementing all the tasks in the plan in order until you get stuck or you need to ask me something.
+  - don't use attempt_completion to report your finishing of a task as it will stop your flow. Just tell me in a normal message and then keep going
+- Otherwise just implement the task as usual
