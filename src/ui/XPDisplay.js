@@ -16,6 +16,6 @@ export class XPDisplay {
     }
 
     update() {
-        this.element.textContent = `XP: ${this.player.getXP()}`;
+        this.element.textContent = `Level: ${this.player.level} XP: ${this.player.getXP()} / ${this.player.getXPRequiredForNextLevel()}`;
     }
 }

@@ -135,6 +135,11 @@ function animate() {
         }
     });
 
+    if (player.getXP() >= player.getXPRequiredForNextLevel()) {
+        player.levelUp();
+        xpDisplay.update();
+    }
+
     renderer.render(scene, camera);
 }
 let time = 0;
