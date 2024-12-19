@@ -38,7 +38,9 @@ export class FishCombat {
                 this.fishModel.scale.set(1, 1, 1);
             }, 100);
             predator.takeDamage(this.attackPower);
-            this.combatSound.play();
+            if (this.combatSound.buffer) {
+                this.combatSound.play();
+            }
         }
     }
 }
