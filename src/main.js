@@ -85,80 +85,87 @@ const treasureChest = new TreasureChest(new THREE.Vector3(-2, 0, -5), 50);
 scene.add(treasureChest.model);
 
 const player = new Player();
-const xpDisplay = new XPDisplay(player);
-const shopButton = new ShopButton(player);
+    const xpDisplay = new XPDisplay(player);
+    const shopButton = new ShopButton(player);
 
-const audioListener = new THREE.AudioListener();
-camera.add(audioListener);
+    const audioListener = new THREE.AudioListener();
+    camera.add(audioListener);
 
-const underwaterSound = new THREE.Audio(audioListener);
-const audioLoader = new THREE.AudioLoader();
-audioLoader.load('assets/underwater.mp3', function(buffer) {
-    underwaterSound.setBuffer(buffer);
-    underwaterSound.setLoop(true);
-    underwaterSound.setVolume(0.5);
-    underwaterSound.play();
-});
+    const underwaterSound = new THREE.Audio(audioListener);
+    const audioLoader = new THREE.AudioLoader();
+    audioLoader.load('assets/underwater.mp3', function(buffer) {
+        underwaterSound.setBuffer(buffer);
+        underwaterSound.setLoop(true);
+        underwaterSound.setVolume(0.5);
+        underwaterSound.play();
+    });
 
-const predator = new FishCombat(fish.model, 1);
-const predator = new Predator(scene, 'clownfish');
-camera.position.z = 5;
+    const coinSound = new THREE.Audio(audioListener);
+    audioLoader.load('assets/coin.mp3', function(buffer) {
+        coinSound.setBuffer(buffer);
+        coinSound.setVolume(0.5);
+    });
 
-camera.position.z = 5;
+    const predator = new FishCombat(fish.model, 1);
+    const predator = new Predator(scene, 'clownfish');
+    camera.position.z = 5;
 
-const skinMaterial = new THREE.MeshBasicMaterial({ color: 0x00ffff });
-const skin = { name: 'blue', material: skinMaterial };
-fish.addSkin(skin);
-fish.applySkin(skin);
+    camera.position.z = 5;
 
-const geometry2 = new THREE.BoxGeometry(0.5, 0.5, 0.5);
-const material2 = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
-const fish2 = new Fish(geometry2, material2);
-scene.add(fish2.model);
-fish2.model.position.set(3, 0, 0);
+    const skinMaterial = new THREE.MeshBasicMaterial({ color: 0x00ffff });
+    const skin = { name: 'blue', material: skinMaterial };
+    fish.addSkin(skin);
+    fish.applySkin(skin);
 
-document.addEventListener('keydown', (event) => {
-    if (event.code === 'Space') {
-        fishMovement.speedBoost();
-    }
-});
+    const geometry2 = new THREE.BoxGeometry(0.5, 0.5, 0.5);
+    const material2 = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
+    const fish2 = new Fish(geometry2, material2);
+    scene.add(fish2.model);
+    fish2.model.position.set(3, 0, 0);
 
-document.addEventListener('mousedown', (event) => {
-    // Basic attack/interact logic
-    const chestDistance = fish.model.position.distanceTo(treasureChest.model.position);
-    if (chestDistance < 1 && !treasureChest.isOpened) {
-        console.log('Treasure chest opened!');
-        treasureChest.onInteract();
-        scene.remove(treasureChest.model);
-    } else {
-        const predatorDistance = fish.model.position.distanceTo(predator.position);
-        if (predatorDistance < 2) {
-            console.log('Attacked predator!');
-            fishCombat.attack(predator);
+    document.addEventListener('keydown', (event) => {
+        if (event.code === 'Space') {
+            fishMovement.speedBoost();
         }
+    });
+
+    document.addEventListener('mousedown', (event) => {
+        // Basic attack/interact logic
+        const chestDistance = fish.model.position.distanceTo(treasureChest.model.position);
+        if (chestDistance < 1 && !treasureChest.isOpened) {
+            console.log('Treasure chest opened!');
+            treasureChest.onInteract();
+            scene.remove(treasureChest.model);
+        } else {
+            const predatorDistance = fish.model.position.distanceTo(predator.position);
+            if (predatorDistance < 2) {
+                console.log('Attacked predator!');
+                fishCombat.attack(predator);
+            }
+        }
+    });
+
+    function animate() {
+        requestAnimationFrame(animate);
+
+        cameraControls.update(fish.model);
+        fishMovement.update(0.016);
+
+        predator.update(0.016, fish.model.position);
+
+        // Basic collision detection
+        const distance = fish.model.position.distanceTo(coin.model.position);
+        if (distance < 0.8) {
+            console.log('Coin collected!');
+            player.addXP(coin.value);
+            xpDisplay.update();
+            scene.remove(coin.model);
+            coinSound.play(); // Play the coin collection sound
+        }
+
+        renderer.render(scene, camera);
     }
-});
-
-function animate() {
-    requestAnimationFrame(animate);
-
-    cameraControls.update(fish.model);
-    fishMovement.update(0.016);
-
-    predator.update(0.016, fish.model.position);
-
-    // Basic collision detection
-    const distance = fish.model.position.distanceTo(coin.model.position);
-    if (distance < 0.8) {
-        console.log('Coin collected!');
-        player.addXP(coin.value);
-        xpDisplay.update();
-        scene.remove(coin.model);
-    }
-
-    renderer.render(scene, camera);
-}
-let time = 0;
+    let time = 0;
 import * as THREE from 'three';
 import * as THREE from 'three';
 import { CameraControls } from './components/CameraControls';
