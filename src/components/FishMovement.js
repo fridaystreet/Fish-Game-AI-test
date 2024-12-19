@@ -2,7 +2,7 @@ import * as THREE from 'three';
 import * as CANNON from 'cannon-es';
 
 export class FishMovement {
-    constructor(fish, speed, world, body, audioLoader = new THREE.AudioLoader()) {
+    constructor(fish, speed, world, body, audioListener) {
         this.fish = fish;
         this.speed = speed;
         this.world = world;
@@ -10,8 +10,8 @@ export class FishMovement {
         this.speedBoostActive = false;
         this.speedBoostDuration = 1; // Duration of speed boost in seconds
         this.speedBoostTimer = 0;
-        this.audioLoader = audioLoader;
-        this.speedBoostSound = new THREE.Audio(new THREE.AudioListener());
+        this.audioLoader = new THREE.AudioLoader();
+        this.speedBoostSound = new THREE.Audio(audioListener);
         this.speedBoostSoundBuffer = null;
         this.audioLoader.load('assets/coin.mp3', (buffer) => {
             this.speedBoostSound.setBuffer(buffer);
@@ -21,6 +21,13 @@ export class FishMovement {
 
         // Initialize velocity
         this.velocity = new THREE.Vector3();
+
+        this.movementSound = new THREE.Audio(audioListener);
+        this.audioLoader.load('assets/underwater.mp3', (buffer) => {
+            this.movementSound.setBuffer(buffer);
+            this.movementSound.setLoop(true);
+            this.movementSound.setVolume(0.5);
+        });
     }
 
     update(deltaTime) {
@@ -51,6 +58,11 @@ export class FishMovement {
 
         // Update Three.js mesh position based on Cannon.js body
         this.fish.position.copy(this.body.position);
+
+        // Play movement sound if not already playing
+        if (!this.movementSound.isPlaying) {
+            this.movementSound.play();
+        }
     }
 
     applyForce(force) {

@@ -74,12 +74,12 @@ const reefEnvironment = new ReefEnvironment(scene);
 const geometry = new THREE.ConeGeometry(0.5, 1, 32);
 const material = new THREE.MeshBasicMaterial({ color: 0xffa500 });
 const fish = new Fish(geometry, material);
-scene.add(fish.model);
+    scene.add(fish.model);
 
-const fishMovement = new FishMovement(fish.model, 2);
+    const fishMovement = new FishMovement(fish.model, 2, null, fish.model, audioListener);
 
-const coin = new Coin(new THREE.Vector3(2, 0, -5), 10);
-scene.add(coin.model);
+    const coin = new Coin(new THREE.Vector3(2, 0, -5), 10);
+    scene.add(coin.model);
 
 const treasureChest = new TreasureChest(new THREE.Vector3(-2, 0, -5), 50);
 scene.add(treasureChest.model);
