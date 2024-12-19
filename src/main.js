@@ -106,9 +106,9 @@ const player = new Player();
         coinSound.setVolume(0.5);
     });
 
-    const predator = new FishCombat(fish.model, 1);
-    const predator = new Predator(scene, 'clownfish');
-    camera.position.z = 5;
+    const predator = new FishCombat(fish.model, 1, audioListener);
+        const predator = new Predator(scene, 'clownfish');
+        camera.position.z = 5;
 
     camera.position.z = 5;
 
