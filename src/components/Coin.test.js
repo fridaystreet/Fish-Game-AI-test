@@ -1,50 +1,47 @@
 import { Coin } from './Coin';
 import * as THREE from 'three';
 
-// Mock THREE.Audio
 jest.mock('three', () => {
-    const originalTHREE = jest.requireActual('three');
+    const originalThree = jest.requireActual('three');
     return {
-        ...originalTHREE,
-        Audio: jest.fn(() => ({
-            setVolume: jest.fn(),
-            setBuffer: jest.fn(),
-            play: jest.fn(),
-        })),
-        AudioLoader: jest.fn(() => ({
-            load: jest.fn((url, onLoad) => onLoad({})),
+        ...originalThree,
+        AudioLoader: jest.fn().mockImplementation(() => ({
+            load: jest.fn((path, onLoad) => {
+                setTimeout(() => {
+                    const buffer = new originalThree.AudioBuffer(new originalThree.AudioContext(), 1, 8000, 1);
+                    onLoad(buffer);
+                }, 0);
+            })
         })),
     };
 });
 
 describe('Coin', () => {
     it('should create a Coin instance', () => {
-        const position = new THREE.Vector3(1, 2, 3);
         const scene = new THREE.Scene();
-        const coin = new Coin(scene, position, 10);
+        const position = new THREE.Vector3(1, 2, 3);
+        const coin = new Coin(scene, position, 'silver');
         expect(coin).toBeInstanceOf(Coin);
         expect(coin.model.position).toEqual(position);
         expect(coin.value).toBe(10);
     });
 
     it('should have a sphere geometry', () => {
-        const position = new THREE.Vector3(1, 2, 3);
         const scene = new THREE.Scene();
-        const coin = new Coin(scene, position, 10);
+        const coin = new Coin(scene, new THREE.Vector3(0,0,0));
         expect(coin.model.geometry).toBeInstanceOf(THREE.SphereGeometry);
     });
 
     it('should have a yellow material', () => {
-        const position = new THREE.Vector3(1, 2, 3);
         const scene = new THREE.Scene();
-        const coin = new Coin(scene, position, 10);
-        expect(coin.model.material.color.getHex()).toBe(0xffff00);
+        const coin = new Coin(scene, new THREE.Vector3(0,0,0), 'gold');
+        expect(coin.model.material.color.getHex()).toBe(0xffd700);
     });
 
     it('should add XP to the player and remove the coin on collision', () => {
-        const position = new THREE.Vector3(1, 2, 3);
         const scene = new THREE.Scene();
-        const coin = new Coin(scene, position, 10);
+        const position = new THREE.Vector3(1, 2, 3);
+        const coin = new Coin(scene, position, 'silver');
         const player = {
             addXP: jest.fn(),
             consecutiveCoinCount: 0,
@@ -54,5 +51,19 @@ describe('Coin', () => {
         coin.onCollision(player);
         expect(player.addXP).toHaveBeenCalledWith(10);
         expect(scene.children.length).toBe(0);
+    });
+
+    it('should apply a bonus multiplier for consecutive coin collections', () => {
+        const scene = new THREE.Scene();
+        const position = new THREE.Vector3(1, 2, 3);
+        const coin = new Coin(scene, position, 'bronze');
+        const player = {
+            addXP: jest.fn(),
+            consecutiveCoinCount: 1,
+            setBonusMultiplier: jest.fn(),
+            resetBonusMultiplier: jest.fn(),
+        };
+        coin.onCollision(player);
+        expect(player.setBonusMultiplier).toHaveBeenCalledWith(1.1);
     });
 });
