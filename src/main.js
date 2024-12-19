@@ -106,9 +106,15 @@ const player = new Player();
         coinSound.setVolume(0.5);
     });
 
+    const treasureChestSound = new THREE.Audio(audioListener);
+    audioLoader.load('assets/coin.mp3', function(buffer) { // Using coin.mp3 as a placeholder
+        treasureChestSound.setBuffer(buffer);
+        treasureChestSound.setVolume(0.5);
+    });
+
     const predator = new FishCombat(fish.model, 1, audioListener);
-        const predator = new Predator(scene, 'clownfish');
-        camera.position.z = 5;
+    const predator = new Predator(scene, 'clownfish');
+    camera.position.z = 5;
 
     camera.position.z = 5;
 
@@ -136,6 +142,7 @@ const player = new Player();
             console.log('Treasure chest opened!');
             treasureChest.onInteract();
             scene.remove(treasureChest.model);
+            treasureChestSound.play(); // Play the treasure chest sound
         } else {
             const predatorDistance = fish.model.position.distanceTo(predator.position);
             if (predatorDistance < 2) {
