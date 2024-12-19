@@ -1,9 +1,9 @@
 import * as THREE from 'three';
 import FishModel from './FishModel.js';
-
 export class Fish {
-    constructor(fishType = 'basic') {
-        this.fishModel = new FishModel(fishType);
+    constructor(player, fishType = 'basic') {
+        this.fishType = player?.fishSpecies || fishType;
+        this.fishModel = new FishModel(this.fishType);
         this.model = this.fishModel.getModel();
         this.skins = [];
         this.currentSkin = null;
