@@ -41,6 +41,35 @@ export class ShopScreen {
         this.backButton.style.fontSize = '16px';
         this.backButton.addEventListener('click', () => this.close());
         this.element.appendChild(this.backButton);
+
+        this.addShopItem({
+            name: 'Speed Boost Upgrade',
+            description: 'Increases fish speed',
+            cost: 100,
+            type: 'upgrade',
+            upgrade: { type: 'speed', amount: 1 },
+        });
+        this.addShopItem({
+            name: 'Attack Power Upgrade',
+            description: 'Increases fish attack power',
+            cost: 150,
+            type: 'upgrade',
+            upgrade: { type: 'attack', amount: 1 },
+        });
+        this.addShopItem({
+            name: 'Blue Skin',
+            description: 'Changes fish skin to blue',
+            cost: 200,
+            type: 'skin',
+            skin: { name: 'blue', material: new THREE.MeshBasicMaterial({ color: 0x00ffff }) },
+        });
+        this.addShopItem({
+            name: 'Unlock Lionfish',
+            description: 'Unlocks the Lionfish species',
+            cost: 500,
+            type: 'fish',
+            species: 'lionfish',
+        });
     }
 
     addItem(item) {
