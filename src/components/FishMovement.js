@@ -59,8 +59,8 @@ export class FishMovement {
         // Update Three.js mesh position based on Cannon.js body
         this.fish.position.copy(this.body.position);
 
-        // Play movement sound if not already playing
-        if (!this.movementSound.isPlaying) {
+        // Play movement sound if not already playing and buffer is loaded
+        if (this.movementSound.buffer && !this.movementSound.isPlaying) {
             this.movementSound.play();
         }
     }

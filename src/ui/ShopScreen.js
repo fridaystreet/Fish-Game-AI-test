@@ -1,4 +1,5 @@
 import * as THREE from 'three';
+import { Fish } from '../components/Fish';
 
 export class ShopScreen {
     constructor(player) {
@@ -156,6 +157,13 @@ export class ShopScreen {
                     this.player.applySkin(item.skin);
                 } else if (item.type === 'fish') {
                     this.player.unlockFishSpecies(item.species);
+                    // Replace the current fish with the new species
+                    const newFish = new Fish(this.player);
+                    scene.remove(fish.model);
+                    scene.add(newFish.model);
+                    fishMovement.fish = newFish.model;
+                    fishCombat.fishModel = newFish.model;
+                    fish.model = newFish.model;
                 }
                 this.close();
                 document.body.removeChild(dialog);

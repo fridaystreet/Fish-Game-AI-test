@@ -1,9 +1,11 @@
 import * as THREE from 'three';
 
 export class ReefEnvironment {
-    constructor(scene) {
+    constructor(scene, camera) {
         this.scene = scene;
+        this.camera = camera;
         this.createReef();
+        this.addAmbientSound();
     }
 
     createReef() {
@@ -39,5 +41,20 @@ export class ReefEnvironment {
         );
         background.position.z = -500;
         this.scene.add(background);
+    }
+
+    addAmbientSound() {
+        const listener = new THREE.AudioListener();
+        this.camera.add(listener);
+
+        const sound = new THREE.Audio(listener);
+
+        const audioLoader = new THREE.AudioLoader();
+        audioLoader.load('assets/underwater.mp3', (buffer) => {
+            sound.setBuffer(buffer);
+            sound.setLoop(true);
+            sound.setVolume(0.5);
+            sound.play();
+        });
     }
 }

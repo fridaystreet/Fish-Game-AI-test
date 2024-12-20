@@ -5,14 +5,16 @@
   "main": "src/main.js",
   "scripts": {
     "start": "npx live-server --port=8080",
-    "test": "./node_modules/.bin/jest"
+    "test": "./node_modules/.bin/jest",
+    "test:e2e": "jest src/e2e/game.test.js"
   },
   "devDependencies": {
     "@babel/core": "^7.26.0",
     "@babel/preset-env": "^7.26.0",
     "babel-jest": "^29.7.0",
     "jest": "^29.7.0",
-    "jest-environment-jsdom": "^29.7.0"
+    "jest-environment-jsdom": "^29.7.0",
+    "puppeteer": "^23.11.0"
   },
   "dependencies": {
     "cannon-es": "^0.20.0",

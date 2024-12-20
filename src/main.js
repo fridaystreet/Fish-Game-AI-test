@@ -20,11 +20,11 @@ document.body.appendChild(renderer.domElement);
 
 const cameraControls = new CameraControls(camera, renderer.domElement);
 
-const reefEnvironment = new ReefEnvironment(scene);
+const reefEnvironment = new ReefEnvironment(scene, camera);
 
 const geometry = new THREE.ConeGeometry(0.5, 1, 32);
 const material = new THREE.MeshBasicMaterial({ color: 0xffa500 });
-const fish = new Fish(geometry, material);
+const fish = new Fish(player, geometry, material);
 scene.add(fish.model);
 
 const fishMovement = new FishMovement(fish.model, 2, null, fish.model, camera.audioListener);
